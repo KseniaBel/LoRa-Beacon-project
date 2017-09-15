@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="modal fade" id="transceiverModal" tabindex="-1" role="dialog"
+		aria-labelledby="transceiverModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="transceiverModalLabel">New Transceiver</h4>
+				</div>
+				<div class="modal-body">
+					<form id="createTransceiverForm" enctype='application/json' method="post">
+					    
+						
+						<div class="form-group">
+							<label for="trans-id" class="control-label">Transceiver ID:
+							</label> <input type="text" class="form-control" id="trans-id"
+								name="id">
+						</div>
+						
+						<div class="form-group">
+							<label for="height-text" class="control-label">X-coordinate:
+							</label> <input type="text" class="form-control" id="height-text"
+								name="x">
+						</div>
+						<div class="form-group">
+							<label for="width-text" class="control-label">Y-coordinate:
+							</label> <input type="text" class="form-control" id="width-text"
+								name="y">
+						</div>
+						<div class="form-group">
+							<label for="length-text" class="control-label">Z-coordinate:
+							</label> <input type="text" class="form-control" id="length-text"
+								name="z">
+						</div>
+												<!-- Build your select: -->
+						<div class="form-group">
+							<label for="roomId">Select room: </label>
+							<select id="roomId" name="roomId">
+							</select>
+						</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="submitTransceiverFormBtn">Save</button>
+					<button type="button" class="btn btn-primary hide" id="updateTransceiverFormBtn">Update</button>
+				   </div>
+			   </div>
+		   </div>
+	  </div>
+
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			$("#submitTransceiverFormBtn").on("click", function(){
+				submitTransceiverForm('post');			
+			});
+			$("#updateTransceiverFormBtn").on("click", function(){
+				submitTransceiverForm('put');			
+			});
+			
+			$('#createTransceiverForm').formValidation({
+	            framework: 'bootstrap',
+	            icon: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+	            	'id':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The transceiver ID is required'
+	                        },
+	                        stringLength: {
+	                            max: 11,
+	                            message: 'The ID must be less than 11 characters'
+	                        },
+		                	integer: {
+			                    message: 'The value is not a number'
+			                }
+	                	}
+	                },
+	                'x':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The X coordinate is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                }
+	                	}
+	                },
+	                'y':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The Y coordinate is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                }
+	                	}
+	                },
+	                'z':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The Z coordinate is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                }
+	                	}
+	                },
+	                'roomId':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The Room is required'
+	                        }
+	                	}
+	                }
+	            }
+	        });
+		});
+		</script>
+</body>
+</html>

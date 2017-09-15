@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel">New Room</h4>
+				</div>
+				<div class="modal-body">
+					<form id="createRoomForm" enctype='application/json' method="post">
+					
+						<input type="text" class="form-control hide" id="room-id" name="id">
+					
+						<div class="form-group">
+							<label for="room-name" class="control-label">Room name</label> <input
+								type="text" class="form-control" id="room-name" name="name">
+						</div>
+						<div class="form-group">
+							<label for="height-text" class="control-label">Height(meter):
+							</label> <input type="text" class="form-control" id="height-text"
+								name="height">
+						</div>
+						<div class="form-group">
+							<label for="width-text" class="control-label">Width(meter):
+							</label> <input type="text" class="form-control" id="width-text"
+								name="width">
+						</div>
+						<div class="form-group">
+							<label for="length-text" class="control-label">Length(meter):
+							</label> <input type="text" class="form-control" id="length-text"
+								name="length">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="submitFormBtn">Save</button>
+					<button type="button" class="btn btn-primary hide" id="updateFormBtn">Update</button>
+				   </div>
+			   </div>
+		   </div>
+	  </div>
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			$("#submitFormBtn").on("click", function() {
+	   			console.log("#submitFormBtn clicked" );
+	   			submitRoomModal('post');
+	   		});
+	
+			$("#updateFormBtn").on("click", function() {
+	   			console.log("#updateFormBtn clicked" );
+	   			submitRoomModal('put');
+	   		});
+			
+			$('#createRoomForm')
+	        .formValidation({
+	            framework: 'bootstrap',
+	            icon: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+	                'name': {
+	                    validators: {
+	                    	notEmpty: {
+	                            message: 'The full name is required'
+	                        },
+	                        stringLength: {
+	                            max: 45,
+	                            message: 'The name must be less than 45 characters'
+	                        }
+	                    }
+	                },
+	                'width':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The width is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                },
+	                        stringLength: {
+	                            max: 6,
+	                            message: 'The width is more than 5 characters'
+	                        }
+	                	}
+	                },
+	                'length':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The length is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                },
+	                        stringLength: {
+	                            max: 6,
+	                            message: 'The length is more than 5 characters'
+	                        }
+	                	}
+	                },
+	                'height':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The height is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                },
+	                        stringLength: {
+	                            max: 6,
+	                            message: 'The heiht is more than 5 characters'
+	                        }
+	                	}
+	                }
+	            }
+	        });
+		});
+	
+	</script>
+</body>
+</html>

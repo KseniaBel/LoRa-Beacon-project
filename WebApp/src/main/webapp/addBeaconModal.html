@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="modal fade" id="beaconModal" tabindex="-1" role="dialog"
+		aria-labelledby="beaconModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="beaconModalLabel">New Beacon</h4>
+				</div>
+				<div class="modal-body">
+					<form id="createBeaconForm" enctype='application/json' method="post">
+					
+							<div class="form-group">
+								<input type="text" class="form-control hide" id="beac-id" name="idBeacon">
+							</div>
+							
+							<div class="form-group">
+								<label for="beac-id" class="control-label">Beacon id: 
+								</label> <input type="text" class="form-control" id="beac-id"
+									name="idBeacon">
+							</div>
+							
+							<div class="form-group">
+								<label for="beaconNr" class="control-label">Beacon Number: 
+								</label> <input type="text" class="form-control" id="beaconNr"
+									name="beaconNr">
+							</div>
+							
+							<div class="form-group">
+								<label for="calibr" class="control-label">Calibration:  
+								</label> <input type="text" class="form-control" id="calibr"
+									name="calibration">
+							</div>
+												<!-- Build your select: -->
+							<div class="form-group">
+								<label for="roomId">Select room: </label>
+								<select id="roomId2" name="roomId">
+								</select>
+							</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="submitBeaconFormBtn">Save</button>
+					
+				   </div>
+			   </div>
+		   </div>
+	  </div>
+
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			$("#submitBeaconFormBtn").on("click", function(){
+				submitBeaconForm('post');			
+			});
+			
+			$('#createBeaconForm').formValidation({
+	            framework: 'bootstrap',
+	            icon: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+	                'idBeacon': {
+	                    validators: {
+	                    	notEmpty: {
+	                            message: 'The Beacon ID is required'
+	                        },
+	                        stringLength: {
+	                            max: 45,
+	                            message: 'The Beacon ID must be less than 45 characters'
+	                        }
+	                    }
+	                },
+	                'beaconNr':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The beacon number is required'
+	                        },
+		                	integer: {
+			                    message: 'The value is not a number'
+			                },
+	                        stringLength: {
+	                            max: 11,
+	                            message: 'The beacon number is more than 11 characters'
+	                        }
+	                	}
+	                },
+	                'calibration':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The calibration is required'
+	                        },
+		                	numeric: {
+			                    message: 'The value is not a number',
+			                    // The default separators
+			                    thousandsSeparator: '',
+			                    decimalSeparator: '.'
+			                },
+	                        stringLength: {
+	                            max: 45,
+	                            message: 'The calibration must be less than 45 characters'
+	                        }
+	                	}
+	                },
+	                'roomId':{
+	                	validators: {
+		                	notEmpty: {
+	                            message: 'The Room is required'
+	                        }
+	                	}
+	                }
+	            }
+	        });
+		});
+		</script>
+</body>
+</html>

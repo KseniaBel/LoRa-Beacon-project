@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.kuleuven.groupt.ee5</groupId>
+  <artifactId>LoRaBeacon</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>LoRaBeacon Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+   <properties>
+        <jersey2.version>2.22.2</jersey2.version>
+        <jaxrs.version>2.0.1</jaxrs.version>
+        <jackson.version>2.7.3</jackson.version>
+    </properties>
+    
+  <dependencies>
+   <!-- JAX-RS -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${jaxrs.version}</version>
+        </dependency>
+        <!-- Jersey 2.19 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+		
+	<dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>${jackson.version}</version>
+  </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+	  <dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.0.1</version>
+	    <scope>provided</scope>
+	  </dependency>
+	  <dependency>
+	 		<groupId>org.hibernate</groupId>
+		 	<artifactId>hibernate-core</artifactId>
+		 	<version>4.3.10.Final</version>
+	 </dependency>
+	 
+	 <dependency>
+		 <groupId>mysql</groupId>
+		 <artifactId>mysql-connector-java</artifactId>
+		 <version>5.1.34</version>
+	 </dependency>
+	 
+  </dependencies>
+  <profiles>
+    <profile>
+        <id>localhost</id> 
+        <properties>
+        	<db.settings>localhost</db.settings>
+            <db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
+            <db.jdbcUrl>jdbc:mysql://localhost:3306/DB-Test</db.jdbcUrl>
+            <db.user>root</db.user>
+            <db.password>982002</db.password>
+        </properties>
+    </profile>
+    <profile>
+        <id>kuleuven</id>
+        <properties>
+        	<db.settings>kuleuven</db.settings>
+            <db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
+            <db.jdbcUrl>jdbc:mysql://studev.groept.be:3306/a15_ee5_lora2</db.jdbcUrl>
+            <db.user>a15_ee5_lora2</db.user>
+            <db.password>fr00jp2k</db.password>
+        </properties>
+    </profile>
+</profiles>
+  <build>
+    <finalName>${project.artifactId}-${db.settings}</finalName>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+  </build>
+</project>
